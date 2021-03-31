@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<!-- saved from url=(0055)https://people.engr.tamu.edu/guni/csce625/contest3.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="https://people.engr.tamu.edu/guni/csce625/webpage_files/AI.ico" type="image/x-icon">
+    <title>CSCE 625: Introduction to Artificial Intelligence, Fall 2020</title>
+    <link rel="stylesheet" href="./CSCE 625_ Introduction to Artificial Intelligence, Fall 2020_files/bootstrap.css">
+    <link rel="stylesheet" href="./CSCE 625_ Introduction to Artificial Intelligence, Fall 2020_files/style.css" type="text/css" media="all">
+    <script src="./CSCE 625_ Introduction to Artificial Intelligence, Fall 2020_files/jquery.js.download"></script>
+    <script src="./CSCE 625_ Introduction to Artificial Intelligence, Fall 2020_files/bootstrap.js.download"></script>
+  </head>
+  <body data-new-gr-c-s-check-loaded="14.982.0" data-gr-ext-installed="">
+    <div id="navscroll">
+      <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+          <div class="navbar-container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              </button>
+              <a class="navbar-brand" href="https://people.engr.tamu.edu/guni/csce625/contest3.html" style="color: #000;"><strong>CSCE 625</strong> | Fall 2020</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+              <ul class="nav navbar-nav pull-right">
+                <li class="active"><a href="https://people.engr.tamu.edu/guni/csce625/index.html">Projects</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </div>
+    <div class="container">
+      <div class="main-container">
+        <div class="project">
+          <h1 class="project_title">Contest 3: Multi-Agent Adversarial Pacman (due November-27, 11:59pm)</h1>
+          <div class="text-center"> Version 1.000. Last Updated: 09/14/2019.</div>
+          <hr>
+          <h2>Table of Contents</h2>
+          <ul>
+            <li><a href="https://people.engr.tamu.edu/guni/csce625/contest3.html#Overview">Overview</a></li>
+            <li><a href="https://people.engr.tamu.edu/guni/csce625/contest3.html#ExtraCredit">Extra Credit</a></li>
+            <li><a href="https://people.engr.tamu.edu/guni/csce625/contest3.html#Introduction">Introduction</a></li>
+            <li><a href="https://people.engr.tamu.edu/guni/csce625/contest3.html#Rules">Rules</a></li>
+            <li><a href="https://people.engr.tamu.edu/guni/csce625/contest3.html#DesigningAgents">Designing Agents</a></li>
+            <li><a href="https://people.engr.tamu.edu/guni/csce625/contest3.html#Restrictions">Restrictions</a></li>
+            <li><a href="https://people.engr.tamu.edu/guni/csce625/contest3.html#GettingStarted">Getting Started</a></li>
+            <li><a href="https://people.engr.tamu.edu/guni/csce625/contest3.html#Submission">Submission</a></li>
+          </ul>
+        </div>
+        <hr>
+        <div class="project">
+            <div class="text-center">
+              <img src="./CSCE 625_ Introduction to Artificial Intelligence, Fall 2020_files/minicontest2.png" alt="Pacman maze" width="600">
+              <p>Enough of defense,<br>Onto enemy terrain.<br>Capture all their food!</p>
+            </div>
+            <h2><a id="Overview"></a>Overview</h2>
+            <p>This minicontest involves a multi-player capture-the-flag
+ variant of Pacman, where agents control both Pacman and ghosts in
+coordinated team-based strategies. Your team will try to eat the food on
+ the far side of the map, while defending the food on your home side.
+The contest code is available as a zip archive (<code><a href="https://people.engr.tamu.edu/guni/csce625/contest3.zip">contest3.zip</a></code>).</p>
+
+            <p>
+There is room to bring your own unique ideas, and there is no single set
+ solution. Much looking forward to seeing what you come up with!</p>
+        </div>
+        <hr>
+
+        <div class="project">
+          <h2><a id="ExtraCredit"></a>Grading</h2>
+          <p>Grading is assigned according to the following key:</p>
+          <ul>
+            <li>+1 points for over 51% winning rate against each of 3 staff bots</li>
+            <li>+0.1 points per student bot beaten (&gt;50% winning rate) in the final ranking</li>
+            <li>1st place: +2 points</li>
+            <li>2nd and 3rd place: +1.5 points</li>
+          </ul>
+        </div>
+        <hr>
+
+        <div class="project">
+          <h2><a id="Introduction"></a>Introduction</h2>
+          <p>The primary change between the first and this contests is that now it is an <em>adversarial game</em>,
+ involving two teams competing against each other. Your team will try to
+ eat the food on the far side of the map, while defending the food on
+your home side.</p>
+
+          <p>Your agents are in the form of ghosts on your home side and Pacman on your opponent's side. Also, you are now able to <b>eat your opponent when you are a ghost</b>.
+ If Pacman is eaten by a ghost before reaching his own side of the
+board, he will explode into a cloud of food dots that will be deposited
+back onto the board.</p>
+
+          <p>Note that the contest framework, provided in <code><a href="https://people.engr.tamu.edu/guni/csce625/contest3.zip">contest3.zip</a></code>, has changed slightly from <a href="https://people.engr.tamu.edu/guni/csce625/minicontest1.html">Contest 1</a>. The functions and interfaces are nearly the same, but maps now include power capsules and you can eat your opponents.</p>
+
+          <p>External libraries: in this contest, you are allowed to use <b>numpy</b> as a dependency.</p>
+          <table class="table table-bordered">
+            <tbody>
+              <tr>
+                <td colspan="2"><b>Files you'll edit:</b></td>
+              </tr>
+              <tr>
+                <td><code>myTeam.py</code></td>
+                <td>What will be submitted. Contains all of the code needed for your agent.</td>
+              </tr>
+              <tr>
+                <td colspan="2"><b>Files you might want to look at:</b></td>
+              </tr>
+              <tr>
+                <td><code>capture.py</code></td>
+                <td>The main file that runs games locally. This file also describes the new capture the flag GameState type and rules.</td>
+              </tr>
+              <tr>
+                <td><code>captureAgents.py</code></td>
+                <td>Specification and helper methods for capture agents.</td>
+              </tr>
+              <tr>
+                <td><code>baselineTeam.py</code></td>
+                <td>Example code that defines two very basic reflex agents, to help you get started.</td>
+              </tr>
+              <tr>
+                <td colspan="2"><b>Supporting Files (Do not Modify):</b></td>
+              </tr>
+              <tr>
+                <td><code>game.py</code></td>
+                <td>The logic behind how the Pacman world works. This
+file describes several supporting types like AgentState, Agent,
+Direction, and Grid.</td>
+              </tr>
+              <tr>
+                <td><code>util.py</code></td>
+                <td>Useful data structures for implementing search algorithms.</td>
+              </tr>
+              <tr>
+                <td><code>distanceCalculator.py</code></td>
+                <td>Computes shortest paths between all maze positions.</td>
+              </tr>
+              <tr>
+                <td><code>graphicsDisplay.py</code></td>
+                <td>Graphics for Pacman</td>
+              </tr>
+              <tr>
+                <td><code>graphicsUtils.py</code></td>
+                <td>Support for Pacman graphics</td>
+              </tr>
+              <tr>
+                <td><code>textDisplay.py</code></td>
+                <td>ASCII graphics for Pacman</td>
+              </tr>
+              <tr>
+                <td><code>keyboardAgents.py</code></td>
+                <td>Keyboard interfaces to control Pacman</td>
+              </tr>
+              <tr>
+                <td><code>layout.py</code></td>
+                <td>Code for reading layout files and storing their contents</td>
+              </tr>
+            </tbody>
+          </table>
+          <p></p>
+          <p><strong>Files to Edit and Submit:</strong> You will fill and submit <code>myTeam.py</code>.</p>
+          <p><strong>Academic Dishonesty:</strong> We will be checking
+your code against other submissions in the class for logical redundancy.
+ If you copy someone else's code and submit it with minor changes,
+            we will know. These cheat detectors are quite hard to fool,
+so please don't try. We trust you all to submit your own work only; <em>please</em> don't let us down.
+            If you do, we will pursue the strongest consequences available to us.</p>
+          <p><strong>Getting Help:</strong> You are not alone! If you
+find yourself stuck on something, contact the course staff for help.
+            Office hours, section, and the discussion forum are there
+for your support; please use them. If you can't make our office hours,
+let us know and we will schedule more.
+            We want these contests to be rewarding and instructional,
+not frustrating and demoralizing. But, we don't know when or how to help
+ unless you ask.</p>
+          <p><strong>Discussion:</strong> Please be careful not to post spoilers.</p>
+
+        </div>
+        <hr>
+
+
+        <div class="project">
+          <h2><a id="Rules"></a>Rules</h2>
+          <h3>Layout</h3>
+          <p>The Pacman map is now divided into two halves: blue (right)
+ and red (left). Red agents (which all have even indices) must defend
+the red food while trying to eat the blue food. When on the red side, a
+red agent is a ghost. When crossing into enemy territory, the agent
+becomes a Pacman.</p>
+          <p>There are a variety of layout in the <code>layouts</code> directory.</p>
+
+          <h3 id="Scoring">Scoring</h3>
+          <p>As a Pacman eats food dots, those food dots are stored up
+inside of that Pacman and removed from the board. When a Pacman returns
+to his side of the board, he "deposits" the food dots he is carrying,
+earning one point per food pellet delivered. Red team scores are
+positive, while Blue team scores are negative.</p>
+          <p>If Pacman gets eaten by a ghost before reaching his own
+side of the board, he will explode into a cloud of food dots that will
+be deposited back onto the board.</p>
+
+          <h3>Power Capsules</h3>
+          <p>If Pacman eats a power capsule, agents on the opposing team
+ become "scared" for the next 40 moves, or until they are eaten and
+respawn, whichever comes sooner. Agents that are "scared" are
+susceptible while in the form of ghosts (i.e. while on their own team's
+side) to being eaten by Pacman. Specifically, if Pacman collides with a
+"scared" ghost, Pacman is unaffected and the ghost respawns at its
+starting position (no longer in the "scared" state).</p>
+
+          <h3>Observations</h3>
+          <p>Each agent can see the <b>entire state</b> of the game,
+such as food pellet locations, all pacman locations, all ghost
+locations, etc. See the GameState section for more details.</p>
+
+          <h3>Winning</h3>
+          <p>In this adversarial game, a team wins when they return all
+but two of the opponents' dots. Games are also limited to 1200 agent
+moves (moves can be unequally shared depending on different speeds -
+faster agents get more moves). If this move limit is reached, whichever
+team has returned the most food wins.</p>
+          <p>If the score is zero (i.e., tied) this is recorded as a tie game.</p>
+
+          <h3>Computation Time</h3>
+          <p>Each agent has 1 second to return each action. Each move
+which does not return within one second will incur a warning. After
+three warnings, or any single move taking more than 3 seconds, the game
+is forfeit. There will be an initial start-up allowance of 15 seconds
+(use the <code>registerInitialState</code> function).</p>
+
+        </div>
+        <hr>
+
+        <div class="project">
+          <h2><a id="DesigningAgents"></a>Designing Agents</h2>
+          <p>An agent now has the more complex job of trading off
+offense versus defense and effectively functioning as both a ghost and a
+ Pacman in a team setting. The added time limit of computation
+introduces new challenges.</p>
+
+          <h3>Baseline Team</h3>
+          <p>To kickstart your agent design, we have provided you with a team of two baseline agents, defined in <code>baselineTeam.py</code>. They are quite bad. The <code>OffensiveReflexAgent</code> simply moves toward the closest food on the opposing side. The <code>DefensiveReflexAgent</code> wanders around on its own side and tries to chase down invaders it happens to see.</p>
+
+          <h3>File Format</h3>
+          <p>You should include your agents in a file of the same format as <code>myTeam.py</code>. Your agents must be completely contained in this one file.</p>
+
+          <h3>Interface</h3>
+          <p>The <code>GameState</code> in <code>capture.py</code> should look familiar, but contains new methods like <code>getRedFood</code>,
+ which gets a grid of food on the red side (note that the grid is the
+size of the board, but is only true for cells on the red side with
+food). Also, note that you can list a team's indices with <code>getRedTeamIndices</code>, or test membership with <code>isOnRedTeam</code>.</p>
+
+          <h3>Distance Calculation</h3>
+          <p>To facilitate agent development, we provide code in <code>distanceCalculator.py</code> to supply shortest path maze distances.</p>
+
+          <h3>CaptureAgent Methods</h3>
+          <p>To get started designing your own agent, we recommend subclassing the <code>CaptureAgent</code> class. This provides access to several convenience methods. Some useful methods are:</p>
+          <hr>
+
+          <div class="api"><span class="function" data-mce-mark="1">def getFood(self, gameState):</span>
+            <p class="description">Returns the food you're meant to eat. This is in the form of a matrix where <code>m[x][y]=True</code> if there is food you can eat (based on your team) in that square.</p>
+          </div>
+          <hr>
+          <div class="api"><span class="function" data-mce-mark="1">def getFoodYouAreDefending(self, gameState):</span>
+            <p class="description">Returns the food you're meant to protect (i.e., that your opponent is supposed to eat). This is in the form of a matrix where <code>m[x][y]=True</code> if there is food at <code>(x,y)</code> that your opponent can eat.</p>
+          </div>
+          <hr>
+          <div class="api"><span class="function" data-mce-mark="1">def getOpponents(self, gameState):</span>
+            <p class="description">Returns agent indices of your opponents. This is the list of the numbers of the agents (e.g., red might be <code>[1,3]</code>).</p>
+          </div>
+          <hr>
+          <div class="api"><span class="function" data-mce-mark="1">def getTeam(self, gameState):</span>
+            <p class="description">Returns agent indices of your team. This is the list of the numbers of the agents (e.g., blue might be <code>[1,3]</code>).</p>
+          </div>
+          <hr>
+          <div class="api"><span class="function" data-mce-mark="1">def getScore(self, gameState):</span>
+            <p class="description">Returns how much you are beating the
+other team by in the form of a number that is the difference between
+your score and the opponents score. This number is negative if you're
+losing.</p>
+          </div>
+          <hr>
+          <div class="api"><span class="function" data-mce-mark="1">def getMazeDistance(self, pos1, pos2):</span>
+            <p class="description">Returns the distance between two points; These are calculated using the provided distancer object. If <code>distancer.getMazeDistances()</code> has been called, then maze distances are available. Otherwise, this just returns Manhattan distance.</p>
+          </div>
+          <hr>
+          <div class="api"><span class="function">def getPreviousObservation(self):</span>
+            <p class="description">Returns the <code>GameState</code> object corresponding to the last state this agent saw (the observed state of the game last time this agent moved).</p>
+          </div>
+          <hr>
+          <div class="api"><span class="function">def getCurrentObservation(self):</span>
+            <p class="description">Returns the <code>GameState</code> object corresponding this agent's current observation (the observed state of the game).</p>
+          </div>
+          <hr>
+          <div class="api"><span class="function" data-mce-mark="1">def debugDraw(self, cells, color, clear=False):</span>
+            <p class="description">Draws a colored box on each of the cells you specify. If clear is <code>True</code>,
+ will clear all old drawings before drawing on the specified cells. This
+ is useful for debugging the locations that your code works with. color:
+ list of RGB values between 0 and 1 (i.e. <code>[1,0,0]</code> for red) cells: list of game positions to draw on (i.e. <code>[(20,5), (3,22)]</code>)</p>
+          </div>
+          <hr>
+        </div>
+
+        <div class="project">
+          <h2><a id="Restrictions"></a>Restrictions</h2>
+          <p>You are free to design any agent you want. However, you
+will need to respect the provided APIs if you want to participate in the
+ contest. Agents which compute during the opponent's turn will be
+disqualified. In particular, any form of multi-threading is disallowed,
+because we have found it very hard to ensure that no computation takes
+place on the opponent's turn.</p>
+
+          <p>Please respect the APIs and keep all of your implementation within <code>myTeam.py</code>.</p>
+        </div>
+
+        <hr>
+
+        <div class="project">
+          <h2><a id="GettingStarted"></a>Getting Started</h2>
+          <p>By default, you can run a game with the simple <code>baselineTeam</code> that the staff has provided:</p>
+          <div class="code_example"><p></p><pre>python capture.py</pre><p></p></div>
+          <p>A wealth of options are available to you:</p>
+          <div class="code_example"><p></p><pre>python capture.py --help</pre><p></p></div><p></p>
+          <p>There are four slots for agents, where agents 0 and 2 are
+always on the red team, and 1 and 3 are on the blue team. Agents are
+created by agent factories (one for Red, one for Blue). See the section
+on designing agents for a description of the agents invoked above. The
+only team that we provide is the <code>baselineTeam</code>. It is chosen by default as both the red and blue team, but as an example of how to choose teams:</p>
+          <div class="code_example"><p></p><pre>python capture.py -r baselineTeam -b baselineTeam</pre><p></p></div>
+          <p>which specifies that the red team <code>-r</code> and the blue team <code>-b</code> are both created from <code>baselineTeam.py</code>. To control one of the four agents with the keyboard, pass the appropriate option:</p>
+          <div class="code_example"><p></p><pre>python capture.py --keys0</pre><p></p></div>
+          <p>The arrow keys control your character, which will change from ghost to Pacman when crossing the center line.</p>
+
+          <h3>Layouts</h3>
+          <p>By default, all games are run on the <code>defaultcapture</code> layout. To test your agent on other layouts, use the <code>-l</code> option. In particular, you can generate random layouts by specifying <code>RANDOM[seed]</code>. For example, <code>-l RANDOM13</code> will use a map randomly generated with seed 13.</p>
+
+          <h3>Recordings</h3>
+          <p>You can record local games using the <code>--record</code>
+option, which will write the game history to a file named by the time
+the game was played. You can replay these histories using the <code>--replay</code> option and specifying the file to replay.</p>
+        </div>
+        <hr>
+
+        <div class="project">
+          <h2><a id="Submission"></a>Submission</h2>
+          <p>Please submit a single zip file named <b>&lt;your UIN&gt;.zip</b>
+            containing your <code>myTeam.py</code> file to <b>Canvas -&gt;
+            Assignments -&gt; Contest 2</b>.</p>
+        </div>
+      </div>
+    </div>
+
+
+
+</body></html>

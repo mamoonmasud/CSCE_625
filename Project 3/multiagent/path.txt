@@ -1,0 +1,68 @@
+python autograder.py -q q2
+python autograder.py -t test_cases/q2/0-small-tree
+
+cd Desktop/AI Labs/Project 3/multiagent
+
+
+
+
+
+
+
+
+    newPos = currentGameState.getPacmanPosition()
+    newFood = currentGameState.getFood()
+    newGhostStates = currentGameState.getGhostStates()
+    newGhostPositions = currentGameState.getGhostPositions()
+    newScaredTimes = [ghostState.scaredTimer for ghostState in newGhostStates]
+    food_remaining = currentGameState.getNumFood()
+    pellets_remaining = len(currentGameState.getCapsules())
+    new_food_grid = newFood.asList()
+    # Now we calculate the Manhattan Distance from the Pacman's Location to
+    # all the food points that are still available and sort them out in
+    # ascending order.
+    food_distances = []
+    min_food_distance = 100
+    for food_Positions in new_food_grid:
+        min_food_distance = min(100, manhattanDistance(newPos, food_Positions))
+
+    ghost_man_dist = []
+    dist_ghost = 0
+    for ghostState in newGhostPositions:
+        dist_ghost = manhattanDistance(newPos, ghostState)
+        ghost_man_dist.append(dist_ghost)
+        if (dist_ghost <2):
+            return -float('inf')
+        #print(manhattanDistance(newPos, ghostState))
+    #ghosts_man_dist.sort()
+    #print(ghosts_man_dist) #Gives the Manhattan distance of the Pacman to the Ghosts
+
+
+    # min_ghost_dist = min(ghost_man_dist)
+    # min_index = ghost_man_dist.index(min_ghost_dist)
+
+
+    #Gives out the index of the Ghost with minimum Manhattan Distance
+    #print(min_index)
+    #print(successorGameState.getNumFood()) #gives the remaining foodpallets
+
+
+    # ghost_man_dist = 0
+    # for ghostState in newGhostPositions:
+    #     ghost_man_dist = manhattanDistance(newPos, ghostState)
+    #
+    #     if (ghost_man_dist <2):
+    #         return -float('inf')
+
+    remaining_food_weight = 1000000
+    remaining_pellets_weight =10000
+    closest_food_weight = 1000
+    misc_weight = 0
+    if currentGameState.isLose():
+        misc_weight -= 50000
+    elif currentGameState.isWin():
+        misc_weight += 50000
+        #ghost_man_dist[min_index] + \
+    final_weighted_value = 1.0/(food_remaining +1) *remaining_food_weight + dist_ghost + \
+                            1.0/(min_food_distance+1)*closest_food_weight + 1.0/(pellets_remaining+1) * remaining_pellets_weight + misc_weight
+    return final_weighted_value
